@@ -24,13 +24,6 @@ public class Flirt extends Thread {
 	synchronized int nSons(Man man, Woman woman) {
 		Random random = new Random();
 		
-		ArrayList<Double> values = new ArrayList<>();
-		
-		values.add(payoffFaithCoy);
-		values.add(payoffFaithFast);
-		values.add(payoffPhilCoy);
-		values.add(payoffPhilFast);
-		
 		double sons = 0;
 		
 		if(man.faithful)
@@ -56,10 +49,13 @@ public class Flirt extends Thread {
 		if (boyfriend.faithful)
 			if (girlfriend.coy) {
 				for(int i = 0; i < nSons(boyfriend, girlfriend); i++)
-					if(random.nextBoolean())
+					if(random.nextBoolean()) {
 						population.addPerson(new Man(true));
+						population.countFaith++;
+					}
 					else 
 						population.addPerson(new Woman(true));
+						population.countCoy++;
 				
 				boyfriend.setPartner(girlfriend);
 				girlfriend.setPartner(boyfriend);
@@ -68,10 +64,13 @@ public class Flirt extends Thread {
 				population.addPerson(girlfriend);
 			} else {
 				for(int i = 0; i < nSons(boyfriend, girlfriend); i++)
-					if(random.nextBoolean())
+					if(random.nextBoolean()) {
 						population.addPerson(new Man(true));
+						population.countFaith++;
+					}
 					else
 						population.addPerson(new Woman(false));
+						population.countFast++;
 				
 				boyfriend.setPartner(girlfriend);
 				girlfriend.setPartner(boyfriend);
@@ -82,11 +81,13 @@ public class Flirt extends Thread {
 		else
 			if (!girlfriend.coy)
 				for(int i = 0; i < nSons(boyfriend, girlfriend); i++)
-					if(random.nextBoolean())
+					if(random.nextBoolean()) {
 						population.addPerson(new Man(false));
+						population.countPhil++;
+					}
 					else
 						population.addPerson(new Woman(false));
-				
+						population.countFast++;
 				population.addPerson(boyfriend);
 				population.addPerson(girlfriend);
 	}

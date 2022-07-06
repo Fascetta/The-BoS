@@ -5,8 +5,8 @@ import java.util.concurrent.Executors;
 public class startSimulation {
 	
 	ArrayList<ArrayList<Integer>> start() throws InterruptedException, NoSuchSexException {
-		Population population = new Population(4000, 15, 20, 3, 70, 8);
-		int years = 100;
+		Population population = new Population(1, 15, 20, 3, 70, 3);
+		int years = 0;
 		
 		ArrayList<ArrayList<Integer>> data = new ArrayList<ArrayList<Integer>>();
 		
@@ -14,6 +14,10 @@ public class startSimulation {
 		Woman woman = null;
 		
 		boolean flag = true;
+		
+		//TO-DO  
+		System.out.println("Beginning");
+		population.info();
 		
 		for(int i = 0; i < years; i++) {
 			
@@ -27,7 +31,7 @@ public class startSimulation {
 			ExecutorService executorService = Executors.newCachedThreadPool();
 			long startTime = System.currentTimeMillis();
 			
-			while (flag) {
+			while (flag){
 				try {
 					man = population.pickBoy();
 				}
@@ -41,7 +45,7 @@ public class startSimulation {
 				
 				if(man.partner != null);{
 					population.removePerson(man.partner);
-				} 
+				}
 				{
 					try {
 						woman = population.pickGirl();
@@ -65,8 +69,10 @@ public class startSimulation {
 			}
 			
 			executorService.shutdown();
-			System.out.println("End of transmition. There are left: ");
+			System.out.println("End of year " + i + ". There are left: ");
 			population.info();
+			
+			
 			
 			flag = true;
 		}

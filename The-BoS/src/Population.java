@@ -21,9 +21,7 @@ public class Population {
 		this.countFast = starterP;
 		this.countPhil = starterP;
 		
-		
-		for(int i = 0; i < starterP * 4 ; i++) {
-			
+		for(int i = 0; i < starterP; i++) {
 			men.add(new Man(true));
 			men.add(new Man(false));
 			women.add(new Woman(true));
@@ -32,19 +30,19 @@ public class Population {
 		}
 	}
 	
-	void addPerson(Man man) {
+	synchronized void addPerson(Man man) {
 		men.add(man);
 	}
 	
-	void addPerson(Woman woman) {
+	synchronized void addPerson(Woman woman) {
 		women.add(woman);
 	}
 	
-	void removePerson(Man man) {
+	synchronized void removePerson(Man man) {
 		men.remove(man);
 	}
 	
-	void removePerson(Woman woman) {
+	synchronized void removePerson(Woman woman) {
 		women.remove(woman);
 	}
 
@@ -91,12 +89,13 @@ public class Population {
 		System.out.println("This year " + deaths + " died.");
 	}
 	
+	
 	void info() {
 		System.out.println("There are " + men.size() + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanthropist.");
 		System.out.println("There are " + women.size() + " women, " + countCoy + " are Coy, " + countFast + " are Fast.");
-		System.out.println("Faithful are the " + (countFaith/men.size()*100) + "% of the men.");
-		System.out.println("Coy are the " + (countCoy/women.size()*100) + "% of the women.");
-		System.out.println("Total inhabitans: " + men.size() + women.size());
+		System.out.println("Faithful are the " + ((countFaith * 100) /men.size()) + "% of the men.");
+		System.out.println("Coy are the " + ((countCoy * 100) /women.size()) + "% of the women.");
+		System.out.println("Total inhabitans: " + (men.size() + women.size()));
 		System.out.println();
 	}
 	
