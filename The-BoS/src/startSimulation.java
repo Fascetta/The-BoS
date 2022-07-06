@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class startSimulation {
 	
 	ArrayList<ArrayList<Integer>> start() throws InterruptedException, NoSuchSexException {
-		Population population = new Population(1, 15, 20, 3, 70, 3);
-		int years = 0;
+		Population population = new Population(5, 15, 20, 3, 50, 8);
+		int years = 100;
 		
 		ArrayList<ArrayList<Integer>> data = new ArrayList<ArrayList<Integer>>();
 		
@@ -15,11 +16,13 @@ public class startSimulation {
 		
 		boolean flag = true;
 		
-		//TO-DO  
-		System.out.println("Beginning");
+		System.out.println("Beginning...");
+		System.out.println();
 		population.info();
 		
-		for(int i = 0; i < years; i++) {
+		Random random = new Random();
+		
+		for(int i = 1; i <= years; i++) {
 			
 			for(int j = 0; j < population.men.size(); j++)
 				population.men.get(j).age++;
@@ -28,10 +31,9 @@ public class startSimulation {
 				population.women.get(k).age++;
 			
 			population.growing();
-			ExecutorService executorService = Executors.newCachedThreadPool();
-			long startTime = System.currentTimeMillis();
-			
-			while (flag){
+		
+			for(int p = 0; p < random.nextInt(population.countCoy); p++) {
+				
 				try {
 					man = population.pickBoy();
 				}
@@ -43,15 +45,16 @@ public class startSimulation {
 					e.printStackTrace();
 				}
 				
-				if(man.partner != null);{
+				if(man.partner != null){
 					population.removePerson(man.partner);
 				}
-				{
+				else {
 					try {
 						woman = population.pickGirl();
 						if(woman.partner != null){
 							population.addPerson(man);
 							population.addPerson(woman);
+							continue;
 						}
 					}
 					catch (NoSuchSexException e) {
@@ -61,21 +64,16 @@ public class startSimulation {
 					catch (Exception e) {
 						e.printStackTrace();
 					}
-				}
-				
-				executorService.submit(new Flirt(man, woman, population));
-				long estimatedTime = System.currentTimeMillis() - startTime;
-				if(estimatedTime>100) flag = false;
-			}
+				}				
+			Flirt prova = new Flirt(man,woman, population);
+			prova.run();
 			
-			executorService.shutdown();
+			}
+
 			System.out.println("End of year " + i + ". There are left: ");
 			population.info();
-			
-			
-			
-			flag = true;
 		}
+		
 		
 		return data;
 		

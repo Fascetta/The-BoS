@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Population {
 	
-	int a,b,c, deathAge, maxSons, countFast, countCoy, countPhil, countFaith;
+	int a,b,c, deathAge, maxSons, countFast, countCoy, countPhil, countFaith, nMen, nWomen;
 	
 	ArrayList<Man> men = new ArrayList<>();
 	ArrayList<Woman> women = new ArrayList<>();
@@ -32,18 +32,34 @@ public class Population {
 	
 	synchronized void addPerson(Man man) {
 		men.add(man);
+		if(man.faithful)
+			countFaith++;
+		else
+			countPhil++;
 	}
 	
 	synchronized void addPerson(Woman woman) {
 		women.add(woman);
+		if(woman.coy)
+			countCoy++;
+		else
+			countFast++;
 	}
 	
 	synchronized void removePerson(Man man) {
 		men.remove(man);
+		if(man.faithful)
+			countFaith--;
+		else
+			countPhil--;
 	}
 	
 	synchronized void removePerson(Woman woman) {
 		women.remove(woman);
+		if(woman.coy)
+			countCoy--;
+		else
+			countFast--;
 	}
 
 	synchronized Man pickBoy() throws NoSuchSexException{
@@ -69,9 +85,9 @@ public class Population {
 				if(men.get(i).partner != null)
 					men.get(i).partner.setPartner(null);
 				
-			removePerson(men.get(i));
-			deaths++;
-			i--;
+				removePerson(men.get(i));
+				deaths++;
+				i--;
 			}
 		}
 		
@@ -80,9 +96,9 @@ public class Population {
 				if(women.get(i).partner != null)
 					women.get(i).partner.setPartner(null);
 				
-			removePerson(women.get(i));
-			deaths++;
-			i--;
+				removePerson(women.get(i));
+				deaths++;
+				i--;
 			}
 		}
 		
@@ -91,11 +107,13 @@ public class Population {
 	
 	
 	void info() {
-		System.out.println("There are " + men.size() + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanthropist.");
-		System.out.println("There are " + women.size() + " women, " + countCoy + " are Coy, " + countFast + " are Fast.");
-		System.out.println("Faithful are the " + ((countFaith * 100) /men.size()) + "% of the men.");
-		System.out.println("Coy are the " + ((countCoy * 100) /women.size()) + "% of the women.");
-		System.out.println("Total inhabitans: " + (men.size() + women.size()));
+		int nMen = (countFaith + countPhil);
+		int nWomen = (countCoy + countFast);
+		System.out.println("There are " + nMen + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanthropist.");
+		System.out.println("There are " + nWomen + " women, " + countCoy + " are Coy, " + countFast + " are Fast.");
+		System.out.println("Faithful are the " + ((countFaith * 100) /nMen) + "% of the men.");
+		System.out.println("Coy are the " + ((countCoy * 100) /nWomen) + "% of the women.");
+		System.out.println("Total inhabitans: " + (nMen + nWomen));
 		System.out.println();
 	}
 	

@@ -7,22 +7,35 @@ public class Flirt extends Thread {
 	Man boyfriend;
 	Population population;
 	
-	double payoffFaithCoy, payoffFaithFast, payoffPhilCoy, payoffPhilFast;
+	double payoffFaithCoy, payoffFaithFast, payoffPhil, payoffFast;
 	
 	Flirt(Man boyfriend, Woman girlfriend, Population population){
 		this.boyfriend = boyfriend;
 		this.girlfriend = girlfriend;
 		this.population = population;
 		
-		payoffFaithCoy = population.a - (population.b/2) - population.c;
-		payoffFaithFast = population.a - (population.b/2);
-		payoffPhilCoy = population.a - population.b;
-		payoffPhilFast = population.a;
+		payoffFaithCoy = population.a - (population.b/2.0) - population.c;
+		payoffFaithFast = population.a - (population.b/2.0);
+		payoffPhil = population.a - population.b;
+		payoffFast = population.a;
 		
 	}
 
-	synchronized int nSons(Man man, Woman woman) {
+	synchronized int nSons(Man man, Woman woman, boolean dad) {
 		Random random = new Random();
+		
+		ArrayList<Double> values = new ArrayList<>();
+		
+		values.add(payoffFaithCoy);
+		values.add(payoffFaithFast);
+		values.add(payoffFast);
+		values.add(payoffPhil);
+		
+		double maxE = payoffFaithCoy;
+		
+		for(Double i : values)
+			if(i > maxE)
+				maxE = i;
 		
 		double sons = 0;
 		
@@ -32,45 +45,45 @@ public class Flirt extends Thread {
 			else
 				sons = payoffFaithFast;
 		else
-			sons = payoffPhilFast;
+			if(dad)
+				sons = payoffPhil;
+			else
+				sons = payoffFast;
 		
 		sons = (population.maxSons * sons)/ payoffFaithCoy;
 		int sonsInt = (int) sons;
-		
 		return sonsInt;
 	}
 	
 	@Override
 	public void run() {
 		int a = population.a; int b = population.b; int c = population.c;
-		
 		Random random = new Random();
 		
+		int chance = random.nextInt(100); 
+		
 		if (boyfriend.faithful)
-			if (girlfriend.coy) {
-				for(int i = 0; i < nSons(boyfriend, girlfriend); i++)
-					if(random.nextBoolean()) {
-						population.addPerson(new Man(true));
-						population.countFaith++;
+			if (girlfriend.coy) { // Faith and Coy
+				if(chance <= 60)
+					if(random.nextBoolean()) { // God wish
+						population.addPerson(new Man(true)); // A Faithful is born
 					}
 					else 
-						population.addPerson(new Woman(true));
-						population.countCoy++;
+						population.addPerson(new Woman(true)); // A Coy is born
 				
-				boyfriend.setPartner(girlfriend);
+				boyfriend.setPartner(girlfriend); // they are now a couple
 				girlfriend.setPartner(boyfriend);
 				
-				population.addPerson(boyfriend);
+				population.addPerson(boyfriend); // they return in the array
 				population.addPerson(girlfriend);
-			} else {
-				for(int i = 0; i < nSons(boyfriend, girlfriend); i++)
-					if(random.nextBoolean()) {
-						population.addPerson(new Man(true));
-						population.countFaith++;
-					}
-					else
-						population.addPerson(new Woman(false));
-						population.countFast++;
+					
+			} else { // Faith and Fast
+				if(random.nextBoolean()) 
+					if(chance <= 60)
+						population.addPerson(new Man(true)); // a Faith
+				else
+					if(chance > 60)
+						population.addPerson(new Woman(false)); // a Fast
 				
 				boyfriend.setPartner(girlfriend);
 				girlfriend.setPartner(boyfriend);
@@ -80,15 +93,14 @@ public class Flirt extends Thread {
 			}
 		else
 			if (!girlfriend.coy)
-				for(int i = 0; i < nSons(boyfriend, girlfriend); i++)
+				if(chance > 145)
 					if(random.nextBoolean()) {
 						population.addPerson(new Man(false));
-						population.countPhil++;
 					}
 					else
 						population.addPerson(new Woman(false));
-						population.countFast++;
-				population.addPerson(boyfriend);
-				population.addPerson(girlfriend);
+		
+			population.addPerson(boyfriend);
+			population.addPerson(girlfriend);
 	}
 }
