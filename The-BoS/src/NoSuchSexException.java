@@ -1,8 +1,6 @@
 class NoSuchSexException extends Exception {
-	
-	String sex;
-	
-	NoSuchSexException(String sex){
-		this.sex = sex;
+	String text =  "There are no more women!";
+	NoSuchSexException(String text){
+		System.out.println(text);
 	}
 }

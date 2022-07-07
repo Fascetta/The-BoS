@@ -3,12 +3,8 @@ public class Woman extends Person{
 	
 	boolean coy;
 	
-	volatile Man partner = null;
-	
-	public synchronized void setPartner(Man partner) {this.partner = partner;}
-	
 	Woman(boolean coy) {
-		age = 0;
+		age = 1;
 		this.coy = coy;
 		}
 	
