@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.Random;
 public class startSimulation {
 	
 	void start() throws InterruptedException, NoSuchSexException {
-		Population population = new Population(5, 15, 20, 3, 50);
+		Population population = new Population(1, 15, 20, 3, 60);
 		int years = 100;
 		
 		Man boyfriend = null;
@@ -24,7 +23,7 @@ public class startSimulation {
 			
 			population.growing();
 			
-			for(int m = 0; m < population.men.size(); m++) {
+			for(int m = 0; m < population.men.size(); m ++) {
 				boyfriend = population.men.get(m);
 				
 				try {
@@ -37,7 +36,7 @@ public class startSimulation {
 				Flirt fikifiki = new Flirt(boyfriend, girlfriend, population);
 				fikifiki.run();
 			}
-
+			
 			population.nextGeneration();
 			
 			System.out.println("End of year " + i + ". There are left: ");

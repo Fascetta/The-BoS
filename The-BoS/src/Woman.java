@@ -7,7 +7,4 @@ public class Woman extends Person{
 		age = 1;
 		this.coy = coy;
 		}
-	
-	boolean imCoy() {return coy;}
-	
 }

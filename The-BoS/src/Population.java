@@ -7,7 +7,6 @@ public class Population {
 	int deathAge; 
 	int countFast, countCoy, countPhil, countFaith;
 	int pointFast, pointCoy, pointPhil, pointFaith;
-	int nMen, nWomen;
 	
 	ArrayList<Man> men = new ArrayList<>();
 	ArrayList<Woman> women = new ArrayList<>();
@@ -19,56 +18,51 @@ public class Population {
 		this.c = c;
 		this.deathAge = deathAge;
 		
-		this.countCoy = starterP;
-		this.countFaith = starterP;
-		this.countFast = starterP;
-		this.countPhil = starterP;
-		
 		for(int i = 0; i < starterP; i++) {
-			men.add(new Man(true));
-			men.add(new Man(false));
-			women.add(new Woman(true));
-			women.add(new Woman(false));
-			// System.out.println(men.size());
+			this.addMan(true);
+			this.addMan(false);
+			this.addWoman(true);
+			this.addWoman(false);
 		}
 	}
 	
 	void nextGeneration(){
-		for(int i = 0; i < pointFaith / 10 ; i++) {
-			this.addPerson(new Man(true));
+		
+
+		for(int f = 0; f < pointFaith; f++) {
+			this.addMan(true);
 		}
 		
-		for(int i = 0; i < pointPhil / 10; i++) {
-			this.addPerson(new Man(false));
+		for(int p = 0; p < pointPhil; p++) {
+			this.addMan(false);
 		}
 		
-		for(int i = 0; i < pointCoy / 10; i++) {
-			this.addPerson(new Woman(true));
+		for(int c = 0; c < pointCoy; c++) {
+			this.addWoman(true);
 		}
 		
-		for(int i = 0; i < pointFast / 10; i++) {
-			this.addPerson(new Woman(false));
+		for(int s = 0; s < pointFast; s++) {
+			this.addWoman(false);
 		}
-		
-		pointFaith = pointPhil = pointCoy = pointFast = 0;
+	pointFaith = pointPhil = pointCoy = pointFast = 0;
 	}
 	
-	synchronized void addPerson(Man man) {
-		men.add(man);
-		if(man.faithful)
+	synchronized void addMan(boolean faith) {
+		men.add(new Man(faith));
+		if(faith) 
 			countFaith++;
 		else
 			countPhil++;
 	}
 	
-	synchronized void addPerson(Woman woman) {
-		women.add(woman);
-		if(woman.coy)
+	synchronized void addWoman(boolean coy) {
+		women.add(new Woman(coy));
+		if(coy) 
 			countCoy++;
 		else
 			countFast++;
 	}
-	
+
 	synchronized void removePerson(Man man) {
 		men.remove(man);
 		if(man.faithful)
@@ -112,13 +106,13 @@ public class Population {
 			}
 		}
 		
-		// System.out.println("This year " + deaths + " died.");
+		System.out.println("This year " + deaths + " died.");
 	}
 	
 	
 	void info() {
-		System.out.println("There are " + men.size() + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanthropist.");
-		System.out.println("There are " + women.size() + " women, " + countCoy + " are Coy, " + countFast + " are Fast.");
+		System.out.println(men.size() + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanthropist.");
+		System.out.println(women.size() + " women, " + countCoy + " are Coy, " + countFast + " are Fast.");
 		System.out.println("Faithful are the " + ((countFaith * 100) /men.size()) + "% of the men.");
 		System.out.println("Coy are the " + ((countCoy * 100) /women.size()) + "% of the women.");
 		System.out.println();

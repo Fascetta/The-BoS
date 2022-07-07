@@ -7,7 +7,4 @@ public class Man extends Person{
 		age = 1;
 		this.faithful = faithful;
 		}
-	
-	boolean imFaith() {return faithful;}
-
 }
