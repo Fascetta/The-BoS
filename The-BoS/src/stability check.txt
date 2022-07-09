@@ -1,0 +1,98 @@
+Population(10, 15, 20, 3, 20);
+years = 100;
+
+This year 147 died.
+End of year 40. There are left: 
+1416 men, 846 are Faithful, 570 are Philanthropist.
+728 women, 578 are Coy, 150 are Fast.
+Faithful are the 59% of the men.
+Coy are the 79% of the women.
+
+Stability is reachable!
+Faithful men: 59%
+Coy women: 79%
+
+----------------------------FAILED---------------------------
+
+This year 58 died.
+End of year 57. There are left: 
+294 men, 294 are Faithful, 0 are Philanthropist.
+294 women, 144 are Coy, 150 are Fast.
+Faithful are the 100% of the men.
+Coy are the 48% of the women.
+
+A type has died, stopping simulation
+
+-------------------------------------------------------------
+
+Population(100, 15, 20, 3, 20);
+years = 100;
+
+End of year 62. There are left: 
+43 men, 28 are Faithful, 15 are Philanthropist.
+23 women, 18 are Coy, 5 are Fast.
+Faithful are the 65% of the men.
+Coy are the 78% of the women.
+
+Stability is reachable!
+Faithful men: 65%
+Coy women: 78%
+
+End of year 91. There are left: 
+10030 men, 5935 are Faithful, 4095 are Philanthropist.
+4711 women, 4186 are Coy, 525 are Fast.
+Faithful are the 59% of the men.
+Coy are the 88% of the women.
+
+Stability is reachable!
+Faithful men: 59%
+Coy women: 88%
+
+-----------------------------------------------------------
+
+Population(1000, 15, 20, 3, 50);
+years = 100;
+
+End of year 98. There are left: 
+18587 men, 11822 are Faithful, 6765 are Philanthropist.
+10208 women, 9048 are Coy, 1160 are Fast.
+Faithful are the 63% of the men.
+Coy are the 88% of the women.
+
+Stability is reachable!
+Faithful men: 63%
+Coy women: 88%
+
+INCREASING TIME TO 1000 AND DEATHAGE TO >70 
+LEADS TO A REGRESSION OF THE COY TYPE, AND DEATH OF PHILANDERERS
+
+----------------------------------------------------------------
+
+Population(100, 15, 20, 3, 50);
+years = 1000;
+
+End of year 31. There are left: 
+2649 men, 1614 are Faithful, 1035 are Philanderers.
+1316 women, 1046 are Coy, 270 are Fast.
+Faithful are the 60% of the men.
+Coy are the 79% of the women.
+
+Stability is reachable!
+Faithful men: 60%
+Coy women: 79%
+
+---------------------------------------------------------------
+
+Population(1000, 15, 20, 3, 50);
+years = 100;
+
+End of year 48. There are left: 
+3261 men, 1881 are Faithful, 1380 are Philanderers.
+1481 women, 1156 are Coy, 325 are Fast.
+Faithful are the 57% of the men.
+Coy are the 78% of the women.
+
+Stability is reachable!
+Faithful men: 57%
+Coy women: 78%
+
