@@ -23,7 +23,7 @@ public class startSimulation {
 			
 			population.growing();
 			
-			for(int m = 0; m < population.men.size(); m ++) {
+			for(int m = 0; m < random.nextInt(population.men.size()); m ++) {
 				boyfriend = population.men.get(m);
 				
 				try {
