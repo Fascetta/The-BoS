@@ -108,16 +108,24 @@ public class Population {
 		
 		System.out.println("This year " + deaths + " died.");
 	}
-	
-	
-	void info() {
-		System.out.println(men.size() + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanthropist.");
+
+
+	void info() throws ReachedStabilityException, TypeHasDiedException {
+		int faithPercentage = (countFaith * 100) / men.size(); //ideally 62
+		int coyPercentage = (countCoy * 100) / women.size(); //ideally 83
+
+		System.out.println(men.size() + " men, " + countFaith + " are Faithful, " + countPhil + " are Philanderers.");
 		System.out.println(women.size() + " women, " + countCoy + " are Coy, " + countFast + " are Fast.");
-		System.out.println("Faithful are the " + ((countFaith * 100) /men.size()) + "% of the men.");
-		System.out.println("Coy are the " + ((countCoy * 100) /women.size()) + "% of the women.");
+		System.out.println("Faithful are the " + faithPercentage + "% of the men.");
+		System.out.println("Coy are the " + coyPercentage + "% of the women.");
 		System.out.println();
 
+		if ((faithPercentage >= 57 && faithPercentage <= 68) && (coyPercentage >= 77 && coyPercentage <= 88)){
+			throw new ReachedStabilityException(faithPercentage, coyPercentage);
+		}
+
+		if (countCoy == 0 || countFaith == 0 || countFast == 0 || countPhil == 0){
+			throw new TypeHasDiedException();
+		}
 	}
-	
-	
 }

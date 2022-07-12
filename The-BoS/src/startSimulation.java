@@ -1,11 +1,11 @@
 import java.util.Random;
 public class startSimulation {
 	
-	void start() throws InterruptedException, NoSuchSexException {
-		Population population = new Population(1, 15, 20, 3, 60);
+	void start() throws TypeHasDiedException, ReachedStabilityException {
+		Population population = new Population(100, 15, 20, 3, 60);
 		int years = 100;
 		
-		Man boyfriend = null;
+		Man boyfriend;
 		Woman girlfriend = null;
 
 		Random random = new Random();
@@ -45,7 +45,7 @@ public class startSimulation {
 		}
 	}
 	
-	public static void main(String[] args) throws InterruptedException, NoSuchSexException {
+	public static void main(String[] args) throws TypeHasDiedException, ReachedStabilityException {
 		startSimulation miracolo = new startSimulation();
 		miracolo.start();
 	}
